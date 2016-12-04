@@ -38,14 +38,9 @@ class CreateSprite(pygame.sprite.Sprite):
     def __init__(self, name):
         """
         Creates Sprite from image and gives it size according to image size
-        :param name:
-        :return:
         """
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image(name, True)
-
-        self.true_position_x = self.rect.x
-        self.true_position_y = self.rect.y
 
 
 class Button(CreateSprite):
@@ -61,6 +56,7 @@ class Button(CreateSprite):
         """
         super(Button, self).__init__(name)
         self.visible = True
+        self.input_control = False
         # images
         self.image_no_hover = self.image
         self.image_hover = None
@@ -97,50 +93,28 @@ class Button(CreateSprite):
         Compare button with mouse position and state of its buttons to generate various
         states. Like hovering over button, pressing button etc.
         Upon those states graphic of button changes
-        :return:
         """
 
         import storage as st
 
         events = st.Events.pygame
-        mouse_hover = False
-        mouse_button_down = False
-        mouse_button_up = False
 
-        # MOUSE STATE
-
-        #    is mouse over sprite ?
-        if self.rect.collidepoint(st.Input.mouse_pos):
+        # is mouse over button ?
+        if self.rect.collidepoint(st.Input.mousePos):
             mouse_hover = True
         else:
             mouse_hover = False
 
-        #    is mouse button is down ?
-        for event in events:
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                mouse_button_down = True
-            else:
-                mouse_button_down = False
-
-        #    is mouse button is up ?
-        for event in st.Events.pygame:
-            if event.type == pygame.MOUSEBUTTONUP:
-                mouse_button_up = True
-            else:
-                mouse_button_up = False
-
-        #    If mouse is on sprite and button is pressed up
-        if mouse_button_up is True and mouse_hover is True:
+        # did user click button ?
+        if st.Input.LMBUp is True and mouse_hover is True:
             self.last_pressed = True
         else:
             self.last_pressed = False
 
-        # BUTTON ANIMATION GRAPHICS
-
         # if there is pressed and hover image
         if self.type == 'hover,press':
-            if self.rect.collidepoint(st.Input.mouse_pos):
-                if st.Input.mouse_pressed_buttons[0]:
+            if mouse_hover is True:
+                if st.Input.mousePressedButtons[0]:
                     # pressed
                     self.image = self.image_pressed
                 else:
@@ -153,7 +127,7 @@ class Button(CreateSprite):
                     pass
         # if there is hover but there isn't pressed
         elif self.type == 'press':
-            if self.rect.collidepoint(st.Input.mouse_pos):
+            if mouse_hover is True:
                 for event in events:
                     # pressed
                     if event == 'lmb_down':
@@ -164,7 +138,7 @@ class Button(CreateSprite):
 
         # if there is hover but there isn't pressed
         elif self.type == 'hover':
-            if self.rect.collidepoint(st.Input.mouse_pos):
+            if mouse_hover is True:
                 self.image = self.image_hover
             else:
                 if self.image != self.image_no_hover:

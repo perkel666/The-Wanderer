@@ -7,7 +7,7 @@ class System:
     newGameStarted = bool
     clock = None
     dt = float
-    dt_seconds = float
+    dtSeconds = float
 
 
 class Files:
@@ -20,7 +20,8 @@ class Display:
     framerate = int
     screen = object
     fullscreen = bool
-    fullscreen_switch = bool
+    fullscreenSwitch = bool
+
 
 class Events:
     game = []
@@ -30,12 +31,21 @@ class Events:
 
 class Input:
     # ALL CURRENT INPUT
-    all_input = list
+    allInput = list
     # MOUSE
-    mouse_pos = tuple
-    mouse_pressed_buttons = list
-    mouse_movement = tuple
-    mouse_button_up = bool
+    mousePos = tuple
+    mousePressedButtons = list
+    mouseMovement = tuple
+
+    LMBUp = bool
+    LMBDown = bool
+
+    RMBUp = bool
+    RMBDown = bool
+
+    MMBUp = bool
+    MMBDown = bool
+
     # KEYBOARD
-    keys_pressed = list
+    keysPressed = list
     # JOYSTICK
