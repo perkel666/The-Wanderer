@@ -8,6 +8,7 @@ class System:
     clock = None
     dt = float
     dtSeconds = float
+    fps = float
 
 
 class Files:
@@ -49,3 +50,10 @@ class Input:
     # KEYBOARD
     keysPressed = list
     # JOYSTICK
+
+
+class UInteface:
+    UIMainMenu = object
+    UIGameplay = object
+    UICharacterCreation = object
+    UIInventory = object

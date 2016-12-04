@@ -56,6 +56,7 @@ class Game(object):
         st.Events.pygame = pg.event.get()
         st.Events.game = []
         st.Events.system = []
+        st.System.fps = st.System.clock.get_fps()
 
     def get_user_input(self):
         import scripts.input as u_input
@@ -79,7 +80,8 @@ class Game(object):
         # TEST ||||||||||||||||||||||||||||||||||||||||||||||||
         self.sprites_bcg.draw(st.Display.screen)
         self.sprites_for.draw(st.Display.screen)
-        tx.text(st.Input.mousePos)
+        #tx.text(st.Input.mousePos)
+        tx.text(st.System.fps)
         # TEST ||||||||||||||||||||||||||||||||||||||||||||||||
         pg.display.update()
 
