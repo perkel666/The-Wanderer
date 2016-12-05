@@ -2,6 +2,7 @@ from __future__ import division
 __author__ = 'Perkel'
 
 import pygame as pg
+import time
 
 
 class Game(object):
@@ -19,20 +20,28 @@ class Game(object):
         st.Display.fullscreenSwitch = st.Display.fullscreen
         st.Display.framerate = 50
         st.Display.screen = pg.display.set_mode(st.Display.resolution)
+        st.System.fpsPosition = (st.Display.resolution[0]*0.92, st.Display.resolution[1]*0.92)
         # events
         st.Events.pygame = pg.event.get()
         st.Events.system = []
 
         # TEST ||||||||||||||||||||||||||||||||||||||||||||||||||
 
+        self.surfacebcg = pg.Surface((1280, 720))
+        self.surfacebcg.fill((200, 200, 200))
+        self.surfacebcg.get_rect()
+
         import scripts.utils.graphics_sound_handling as gsh
+        import scripts.utils.spritesheets as spr
+
+        self.spritesheet = spr.sprite_sheet('spritesheet.jpg', 5)
+        self.animatedSprite = spr.SpriteAnim(self.spritesheet, 3)
 
         self.image = gsh.Button('background.jpg')
         self.image2 = Game.ButtonsQuit('pc_left_arrow.png')
 
         self.sprites_bcg = pg.sprite.Group()
         self.sprites_for = pg.sprite.Group()
-
         self.sprites_bcg.add(self.image)
         self.sprites_for.add(self.image2)
 
@@ -57,6 +66,7 @@ class Game(object):
         st.Events.game = []
         st.Events.system = []
         st.System.fps = st.System.clock.get_fps()
+        st.System.currentTime = time.time()
 
     def get_user_input(self):
         import scripts.input as u_input
@@ -69,6 +79,7 @@ class Game(object):
         ev.system_events()
 
         self.image2.get_state()
+        self.animatedSprite.anim_update()
 
     def render_sound(self):
         pass
@@ -80,8 +91,12 @@ class Game(object):
         # TEST ||||||||||||||||||||||||||||||||||||||||||||||||
         self.sprites_bcg.draw(st.Display.screen)
         self.sprites_for.draw(st.Display.screen)
+
         #tx.text(st.Input.mousePos)
-        tx.text(st.System.fps)
+        tx.text(st.System.fps, st.System.fpsPosition, 50)
+        st.Display.screen.blit(self.surfacebcg, (0, 0))
+        st.Display.screen.blit(self.spritesheet[0], (200, 200))
+        st.Display.screen.blit(self.animatedSprite.image, (300, 300))
         # TEST ||||||||||||||||||||||||||||||||||||||||||||||||
         pg.display.update()
 

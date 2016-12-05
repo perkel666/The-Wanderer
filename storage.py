@@ -9,6 +9,8 @@ class System:
     dt = float
     dtSeconds = float
     fps = float
+    fpsPosition = tuple
+    currentTime = None
 
 
 class Files:
@@ -52,8 +54,17 @@ class Input:
     # JOYSTICK
 
 
-class UInteface:
-    UIMainMenu = object
-    UIGameplay = object
-    UICharacterCreation = object
-    UIInventory = object
+class UInterface:
+
+    # GENERAL
+
+    from scripts.user_interface import UIMainMenu
+
+    MainMenu = UIMainMenu()
+    Gameplay = object
+    CharacterCreation = object
+    Inventory = object
+
+    uiList = [
+      MainMenu
+    ]

@@ -27,13 +27,6 @@ def load_image(name, rect=None):
         return image
 
 
-def text(string):
-    import storage as st
-    font = pygame.font.Font(None, 50)
-    scoretext = font.render(str(string), 1, (255, 255, 255))
-    st.Display.screen.blit(scoretext, (500, 457))
-
-
 class CreateSprite(pygame.sprite.Sprite):
     def __init__(self, name):
         """
