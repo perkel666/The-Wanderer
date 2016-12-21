@@ -24,28 +24,8 @@ class Game(object):
         # events
         st.Events.pygame = pg.event.get()
         st.Events.system = []
-
-        # TEST ||||||||||||||||||||||||||||||||||||||||||||||||||
-
-        self.surfacebcg = pg.Surface((1280, 720))
-        self.surfacebcg.fill((200, 200, 200))
-        self.surfacebcg.get_rect()
-
-        import scripts.utils.graphics_sound_handling as gsh
-        import scripts.utils.spritesheets as spr
-
-        self.spritesheet = spr.sprite_sheet('spritesheet.jpg', 5)
-        self.animatedSprite = spr.SpriteAnim(self.spritesheet, 3)
-
-        self.image = gsh.Button('background.jpg')
-        self.image2 = Game.ButtonsQuit('pc_left_arrow.png')
-
-        self.sprites_bcg = pg.sprite.Group()
-        self.sprites_for = pg.sprite.Group()
-        self.sprites_bcg.add(self.image)
-        self.sprites_for.add(self.image2)
-
-        # ||||||||||||||||||||||||||||||||||||||||||||||||||||||
+        # initialize ui
+        st.UInterface()
 
     def main_loop(self):
         import storage as st
@@ -75,35 +55,24 @@ class Game(object):
 
     def update_state(self):
         import scripts.events as ev
+        import scripts.ui.ui_objects as ui_objects
         ev.keyboard_system_events()
         ev.system_events()
-
-        self.image2.get_state()
-        self.animatedSprite.anim_update()
+        ui_objects.update_ui()
 
     def render_sound(self):
         pass
 
     def render_screen(self):
-        import scripts.utils.text_handling as tx
-        import storage as st
+        import scripts.rendering_graphics as rnd
 
-        # TEST ||||||||||||||||||||||||||||||||||||||||||||||||
-        self.sprites_bcg.draw(st.Display.screen)
-        self.sprites_for.draw(st.Display.screen)
+        rnd.render_ui()
 
-        #tx.text(st.Input.mousePos)
-        tx.text(st.System.fps, st.System.fpsPosition, 50)
-        st.Display.screen.blit(self.surfacebcg, (0, 0))
-        st.Display.screen.blit(self.spritesheet[0], (200, 200))
-        st.Display.screen.blit(self.animatedSprite.image, (300, 300))
-        # TEST ||||||||||||||||||||||||||||||||||||||||||||||||
         pg.display.update()
 
     def execute_state(self):
         import scripts.events as ev
         ev.handle_system_events()
-        self.image2.do_action()
 
     import scripts.utils.graphics_sound_handling as gsh
 

@@ -1,6 +1,6 @@
 __author__ = 'Perkel'
 
-import pygame as pg
+import storage as st
 
 
 def render_gameplay():
@@ -9,6 +9,5 @@ def render_gameplay():
 
 def render_ui():
     from storage import UInterface
-
-    if UInterface.MainMenu.visible is True:
-        UInterface.MainMenu.draw_ui()
+    for spritegroup in UInterface.listCompleteRendering:
+        spritegroup.draw(st.Display.screen)
