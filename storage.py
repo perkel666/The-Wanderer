@@ -119,7 +119,5 @@ class UInterface:
     for x in list_other:
         listCompleteRendering.append(x)
 
-
-
 class UIGameplay():
     pass

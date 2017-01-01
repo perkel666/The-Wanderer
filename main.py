@@ -66,9 +66,10 @@ class Game(object):
     def render_screen(self):
         import scripts.rendering_graphics as rnd
 
+        rnd.update_state()
         rnd.render_ui()
-
         pg.display.update()
+        rnd.render_clear()
 
     def execute_state(self):
         import scripts.events as ev
