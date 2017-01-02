@@ -2,7 +2,7 @@ from __future__ import division
 __author__ = 'Perkel'
 
 from scripts.utils.graphics_sound_handling import load_image
-from scripts.utils.graphics_sound_handling import Button
+from scripts.utils.graphics_sound_handling import CreateSprite
 import pygame
 
 

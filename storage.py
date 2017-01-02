@@ -28,8 +28,9 @@ class Display:
 
 class Events:
     game = []
-    system = list
-    pygame = list
+    system = []
+    pygame = []
+    ui = []
 
 
 class Input:

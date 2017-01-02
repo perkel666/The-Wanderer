@@ -77,16 +77,16 @@ class Game(object):
 
     import scripts.utils.graphics_sound_handling as gsh
 
-    class ButtonsQuit(gsh.Button):
+    class ButtonsQuit(gsh.CreateSprite):
         def __init__(self, name):
             super(Game.ButtonsQuit, self).__init__(name, hover=True, pressed=True)
             self.description = "Quit"
             self.order = 6
 
         def do_action(self):
-            if self.last_pressed is True:
+            if self.last_press is True:
                 print self.description
-                self.last_pressed = False
+                self.last_press = False
 
 if __name__ == "__main__":
     game = Game()

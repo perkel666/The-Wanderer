@@ -1,7 +1,7 @@
 __author__ = 'Perkel'
 
 import pygame as pg
-from scripts.utils.graphics_sound_handling import Button
+from scripts.utils.graphics_sound_handling import CreateSprite
 
 
 class UIMainMenu():
@@ -11,12 +11,12 @@ class UIMainMenu():
 
         self.difference = 120
 
-        self.background = Button('ui_background_mm.jpg')
-        self.uiBackground = Button('ui_background.jpg')
+        self.background = CreateSprite('ui_background_mm.jpg')
+        self.uiBackground = CreateSprite('ui_background.jpg')
 
-        self.buttonNewGame = Button('mm_button_newgame.jpg', hover=True)
-        self.buttonOptions = Button('mm_button_options.jpg', hover=True)
-        self.buttonQuit = Button('mm_button_quit.jpg', hover=True)
+        self.buttonNewGame = CreateSprite('mm_button_newgame.jpg', button=True)
+        self.buttonOptions = CreateSprite('mm_button_options.jpg', button=True)
+        self.buttonQuit = CreateSprite('mm_button_quit.jpg', button=True)
 
         self.buttonList =[
             self.buttonNewGame,
@@ -52,3 +52,16 @@ class UIMainMenu():
 
     def execute_actions(self):
         pass
+
+
+class UIOptions():
+    pass
+
+
+class UICharacterCreation():
+    pass
+
+
+class UIGameplay():
+    pass
+
