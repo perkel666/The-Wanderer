@@ -82,8 +82,8 @@ class Game(object):
     import scripts.utils.graphics_sound_handling as gsh
 
     class ButtonsQuit(gsh.CreateSprite):
-        def __init__(self, name):
-            super(Game.ButtonsQuit, self).__init__(name, button=True)
+        def __init__(self, name_of_the_file):
+            super(Game.ButtonsQuit, self).__init__(name_of_the_file, button_name=True)
             self.description = "Quit"
             self.order = 6
 

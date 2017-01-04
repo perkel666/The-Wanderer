@@ -28,23 +28,25 @@ def load_image(name, rect=None):
 
 
 class CreateSprite(pygame.sprite.Sprite):
-    def __init__(self, name, button=None, event=None):
+    def __init__(self, name_of_the_file, button_name=None):
 
         """
         Creates CreateSprite from name of image in program folder.
-        :param name: name of the file without path eg. nice_picture.png
-        :param hover: gives button ability to have mouse hover image.
-        Picture needs to be in same folder as param name and name needs to be finished with _hover
-        eg. nice_picture_hover.png
-        :param pressed: Same as above but with _pressed eg. nice_picture_pressed.png
+        :param name_of_the_file: name of the file without path eg. nice_picture.png
+        :param button_name: makes image a button and creates event that will be attached to events ui after clicking
+        on it. If file has other files with ending _hover or _press or both
+        then automatically it will be used. ex. nice_picture_hover.jpg
         """
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image(name, True)
+        self.image, self.rect = load_image(name_of_the_file, True)
         self.visible = True
         self.input_control = False
 
-        self.name = name
-        self.buttonEvent = 'EVENT:BUTTON:'+name
+        self.name = name_of_the_file
+        self.buttonEvent = 'NOEVENT'
+
+        if button_name is not None:
+            self.buttonEvent = 'EVENT:BUTTON:'+button_name
 
         # images
         self.image_no_hover = self.image
@@ -59,9 +61,9 @@ class CreateSprite(pygame.sprite.Sprite):
         # State in response to input
         self.last_press = False
 
-        if button is True:
+        if button_name is not None:
             import storage as st
-            name_path = st.Files.files.find_path(name)
+            name_path = st.Files.files.find_path(name_of_the_file)
             file_path, file_fullname = os.path.split(name_path)
             file_name, file_ending = os.path.splitext(file_fullname)
 
@@ -86,8 +88,6 @@ class CreateSprite(pygame.sprite.Sprite):
 
         if self.type != 'normal sprite':
             self.get_state()
-        if self.press is True:
-            self.click()
 
     def get_state(self):
         """
@@ -148,9 +148,10 @@ class CreateSprite(pygame.sprite.Sprite):
                     self.image = self.image_no_hover
 
     def click(self):
-        import storage as st
-        st.Events.ui.append('EVENT:BUTTON:'+self.name)
-        print self.type
+        if self.press is True:
+            import storage as st
+            st.Events.ui.append(self.buttonEvent)
+            print self.type
 
 
 

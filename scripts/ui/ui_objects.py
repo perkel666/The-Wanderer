@@ -1,22 +1,24 @@
 __author__ = 'Perkel'
 
-from scripts.user_interface import UIMainMenu
+import scripts.user_interface as ui
 
 # Main User Interface
 
-MainMenu = UIMainMenu()
+MainMenu = ui.UIMainMenu()
 Options = object
 Save = object
 Load = object
-CharacterCreation = object
+CharacterCreation = ui.UICharacterCreation()
 Inventory = object
 Gameplay = object
 
 uiList = [
-    MainMenu
+    MainMenu,
+    CharacterCreation
 ]
 
 
 def update_ui():
     for x in uiList:
-        x.update()
+        if x.visible is True:
+            x.update()

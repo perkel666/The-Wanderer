@@ -11,12 +11,12 @@ class UIMainMenu():
 
         self.difference = 120
 
-        self.background = CreateSprite('ui_background_mm.jpg')
-        self.uiBackground = CreateSprite('ui_background.jpg')
+        self.background = CreateSprite('ui_background_mm.jpg', 'mm_background')
+        self.uiBackground = CreateSprite('ui_background.jpg', 'mm_ui_background')
 
-        self.buttonNewGame = CreateSprite('mm_button_newgame.jpg', button=True)
-        self.buttonOptions = CreateSprite('mm_button_options.jpg', button=True)
-        self.buttonQuit = CreateSprite('mm_button_quit.jpg', button=True)
+        self.buttonNewGame = CreateSprite('mm_button_newgame.jpg', 'NEWGAME')
+        self.buttonOptions = CreateSprite('mm_button_options.jpg', 'OPTIONS')
+        self.buttonQuit = CreateSprite('mm_button_quit.jpg', 'QUIT')
 
         self.buttonList =[
             self.buttonNewGame,
@@ -27,6 +27,7 @@ class UIMainMenu():
     def update(self):
         self.position_ui()
         self.add_spritestorender()
+        self.execute_actions()
 
     def position_ui(self):
 
@@ -51,17 +52,80 @@ class UIMainMenu():
             UInterface.button_layer1.add(button)
 
     def execute_actions(self):
-        pass
-
-
-class UIOptions():
-    pass
+        if self.inputControl is True:
+            for button in self.buttonList:
+                button.click()
 
 
 class UICharacterCreation():
-    pass
+    def __init__(self):
+        self.visible = False
+        self.inputControl = False
+
+        self.background = CreateSprite('cc_background.jpg', 'cc_background')
+        self.uiBackground = CreateSprite('cc_ui_background.jpg', 'cc_ui_background')
+
+        self.faceBackground = CreateSprite('cc_face_background.jpg', 'cc_face_background')
+        self.faceForeground = ''
+
+        self.buttonNextFace = CreateSprite('cc_arrow_right.jpg', 'CCNEXTFACE')
+        self.buttonPreviousFace = CreateSprite('cc_arrow_left.jpg', 'CCPREVIOUSFACE')
+        self.buttonNextBackground = CreateSprite('cc_arrow_right.jpg', 'CCNEXTFACEBACKGROUND')
+        self.buttonPreviousBackground = CreateSprite('cc_arrow_left.jpg', 'CCPREVIOUSFACEBACKGROUND')
+
+        self.buttonFinish = CreateSprite('cc_button_finish.jpg', 'CCFINISH')
+        self.buttonBack = CreateSprite('cc_button_back.jpg', 'CCBACK')
+
+        self.buttonList = [
+            self.buttonFinish,
+            self.buttonBack,
+            self.buttonNextFace,
+            self.buttonPreviousFace,
+            self.buttonNextBackground,
+            self.buttonPreviousBackground
+        ]
+
+    def update(self):
+        self.position_ui()
+        self.add_spritestorender()
+        self.execute_actions()
+
+    def position_ui(self):
+        import storage as st
+
+        self.uiBackground.rect.center = (st.Display.resolution[0]/2, st.Display.resolution[1]/2+30)
+        self.faceBackground.rect.center = (st.Display.resolution[0]/2, st.Display.resolution[1]/2-90)
+
+        self.buttonNextFace.rect.center = (st.Display.resolution[0]/2+140, st.Display.resolution[1]/2-160)
+        self.buttonPreviousFace.rect.center = (st.Display.resolution[0]/2-140, st.Display.resolution[1]/2-160)
+        self.buttonNextBackground.rect.center = (st.Display.resolution[0]/2+140, st.Display.resolution[1]/2-15)
+        self.buttonPreviousBackground.rect.center = (st.Display.resolution[0]/2-140, st.Display.resolution[1]/2-15)
+
+        self.buttonFinish.rect.center = (st.Display.resolution[0]*0.825, st.Display.resolution[1]*0.945)
+        self.buttonBack.rect.center = (st.Display.resolution[0]*0.175, st.Display.resolution[1]*0.945)
+    def add_spritestorender(self):
+        from storage import UInterface
+        UInterface.background.add(self.background)
+        UInterface.layer1.add(self.uiBackground)
+        UInterface.layer2.add(self.faceBackground)
+
+        for button in self.buttonList:
+            UInterface.button_layer1.add(button)
+
+    def execute_actions(self):
+        if self.inputControl is True:
+            for button in self.buttonList:
+                button.click()
+
+
+class UIOptions():
+    def __init__(self):
+        self.visible = False
+        self.inputControl = False
 
 
 class UIGameplay():
-    pass
+    def __init__(self):
+        self.visible = False
+        self.inputControl = False
 

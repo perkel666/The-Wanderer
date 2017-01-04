@@ -61,10 +61,31 @@ def handle_system_events():
 
 def handle_ui_events():
     import storage as st
+    import scripts.ui.ui_objects as ui
     for event in st.Events.ui:
-        if event == 'EVENT:BUTTON:mm_button_newgame.jpg':
+
+        # MAIN MENU
+
+        if event == 'EVENT:BUTTON:NEWGAME':
+            ui.MainMenu.visible = False
+            ui.MainMenu.inputControl = False
+            ui.CharacterCreation.visible = True
+            ui.CharacterCreation.inputControl = True
+        if event == 'EVENT:BUTTON:OPTIONS':
             pass
-        if event == 'EVENT:BUTTON:mm_button_options.jpg':
+        if event == 'EVENT:BUTTON:SAVE':
             pass
-        if event == 'EVENT:BUTTON:mm_button_quit.jpg':
+        if event == 'EVENT:BUTTON:LOAD':
+            pass
+        if event == 'EVENT:BUTTON:QUIT':
             st.System.isGameStillRunning = False
+
+        # CHARACTER CREATION
+
+        if event == 'EVENT:BUTTON:CCFINISH':
+            pass
+        if event == 'EVENT:BUTTON:CCBACK':
+            ui.CharacterCreation.visible = False
+            ui.CharacterCreation.inputControl = False
+            ui.MainMenu.visible = True
+            ui.MainMenu.inputControl = True
