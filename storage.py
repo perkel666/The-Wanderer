@@ -35,20 +35,20 @@ class Events:
 
 class Input:
     # ALL CURRENT INPUT
-    allInput = list
+    allInput = []
     # MOUSE
-    mousePos = tuple
-    mousePressedButtons = list
+    mousePos = (0, 0)
+    mousePressedButtons = []
     mouseMovement = tuple
 
-    LMBUp = bool
-    LMBDown = bool
+    LMBUp = False
+    LMBDown = False
 
-    RMBUp = bool
-    RMBDown = bool
+    RMBUp = False
+    RMBDown = False
 
-    MMBUp = bool
-    MMBDown = bool
+    MMBUp = False
+    MMBDown = False
 
     # KEYBOARD
     keysPressed = list

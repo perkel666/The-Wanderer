@@ -28,7 +28,7 @@ def load_image(name, rect=None):
 
 
 class CreateSprite(pygame.sprite.Sprite):
-    def __init__(self, name, button=None):
+    def __init__(self, name, button=None, event=None):
 
         """
         Creates CreateSprite from name of image in program folder.
@@ -43,6 +43,9 @@ class CreateSprite(pygame.sprite.Sprite):
         self.visible = True
         self.input_control = False
 
+        self.name = name
+        self.buttonEvent = 'EVENT:BUTTON:'+name
+
         # images
         self.image_no_hover = self.image
         self.image_hover = None
@@ -50,8 +53,8 @@ class CreateSprite(pygame.sprite.Sprite):
 
         # button type
         self.type = 'normal sprite'
-        self.hover = bool
-        self.press = bool
+        self.hover = False
+        self.press = False
 
         # State in response to input
         self.last_press = False
@@ -71,17 +74,20 @@ class CreateSprite(pygame.sprite.Sprite):
                     self.image_pressed = load_image(file_name+"_press"+file_ending)
                     self.press = True
 
-        ###
         # check for hover and pressed images
-
-        ###
         if self.hover is True and self.press is True:
             self.type = 'hover,press'
         elif self.press is True and self.hover is not True:
             self.type = 'press'
         elif self.hover is True and self.press is not True:
             self.type = 'hover'
-        ###
+
+    def update(self):
+
+        if self.type != 'normal sprite':
+            self.get_state()
+        if self.press is True:
+            self.click()
 
     def get_state(self):
         """
@@ -94,6 +100,8 @@ class CreateSprite(pygame.sprite.Sprite):
 
         events = st.Events.pygame
 
+        ### print st.Input.LMBUp
+
         # is mouse over button ?
         if self.rect.collidepoint(st.Input.mousePos):
             mouse_hover = True
@@ -102,9 +110,9 @@ class CreateSprite(pygame.sprite.Sprite):
 
         # did user click button ?
         if st.Input.LMBUp is True and mouse_hover is True:
-            self.last_press = True
+            self.press = True
         else:
-            self.last_press = False
+            self.press = False
 
         # if there is pressed and hover image
         if self.type == 'hover,press':
@@ -141,4 +149,9 @@ class CreateSprite(pygame.sprite.Sprite):
 
     def click(self):
         import storage as st
-        st.Events.ui.append()
+        st.Events.ui.append('EVENT:BUTTON:'+self.name)
+        print self.type
+
+
+
+

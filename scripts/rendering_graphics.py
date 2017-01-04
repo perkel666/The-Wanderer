@@ -23,4 +23,4 @@ def update_state():
     from storage import UInterface
     for spritegroup in UInterface.listCompleteRendering:
         for sprite in spritegroup:
-            sprite.get_state()
+            sprite.update()

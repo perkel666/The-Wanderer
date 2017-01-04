@@ -45,6 +45,7 @@ class Game(object):
         st.Events.pygame = pg.event.get()
         st.Events.game = []
         st.Events.system = []
+        st.Events.ui = []
         st.System.fps = st.System.clock.get_fps()
         st.System.currentTime = time.time()
 
@@ -55,9 +56,9 @@ class Game(object):
 
     def update_state(self):
         import scripts.events as ev
-        import scripts.ui.ui_objects as ui_objects
         ev.keyboard_system_events()
         ev.system_events()
+        import scripts.ui.ui_objects as ui_objects
         ui_objects.update_ui()
 
     def render_sound(self):
@@ -73,13 +74,16 @@ class Game(object):
 
     def execute_state(self):
         import scripts.events as ev
+        ev.handle_ui_events()
         ev.handle_system_events()
+
+    ####
 
     import scripts.utils.graphics_sound_handling as gsh
 
     class ButtonsQuit(gsh.CreateSprite):
         def __init__(self, name):
-            super(Game.ButtonsQuit, self).__init__(name, hover=True, pressed=True)
+            super(Game.ButtonsQuit, self).__init__(name, button=True)
             self.description = "Quit"
             self.order = 6
 
@@ -87,6 +91,7 @@ class Game(object):
             if self.last_press is True:
                 print self.description
                 self.last_press = False
+    ####
 
 if __name__ == "__main__":
     game = Game()

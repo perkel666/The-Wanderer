@@ -57,3 +57,14 @@ def handle_system_events():
             st.Display.fullscreenSwitch = st.Display.fullscreen
 
     st.Events.system = []
+
+
+def handle_ui_events():
+    import storage as st
+    for event in st.Events.ui:
+        if event == 'EVENT:BUTTON:mm_button_newgame.jpg':
+            pass
+        if event == 'EVENT:BUTTON:mm_button_options.jpg':
+            pass
+        if event == 'EVENT:BUTTON:mm_button_quit.jpg':
+            st.System.isGameStillRunning = False

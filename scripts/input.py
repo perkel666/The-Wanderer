@@ -12,12 +12,12 @@ def mouse_input():
     # LMB state
     hits = 0
     for event in st.Events.pygame:
-        if event == pg.MOUSEBUTTONDOWN and event.button == 1:
+        if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
             st.Input.LMBDown = True
             st.Input.LMBUp = False
             hits += 1
-        elif event == pg.MOUSEBUTTONUP and event.button == 1:
-            st.Input.LNBUp = True
+        elif event.type == pg.MOUSEBUTTONUP and event.button == 1:
+            st.Input.LMBUp = True
             st.Input.LMBDown = False
             hits += 1
 
@@ -28,11 +28,11 @@ def mouse_input():
     #RMB state
     hits = 0
     for event in st.Events.pygame:
-        if event == pg.MOUSEBUTTONDOWN and event.button == 2:
+        if event.type == pg.MOUSEBUTTONDOWN and event.button == 2:
             st.Input.RMBDown = True
             st.Input.RMBUp = False
             hits += 1
-        elif event == pg.MOUSEBUTTONUP and event.button == 2:
+        elif event.type == pg.MOUSEBUTTONUP and event.button == 2:
             st.Input.RMBUp = True
             st.Input.RMBDown = False
             hits += 1
