@@ -84,7 +84,12 @@ def handle_ui_events():
             st.System.isGameStillRunning = False
 
         # MAIN MENU - OPTIONS
-
+        if event == 'EVENT:BUTTON:OMGAME':
+            pass
+        if event == 'EVENT:BUTTON:OMDISPLAY':
+            pass
+        if event == 'EVENT:BUTTON:OMSOUND':
+            pass
         if event == 'EVENT:BUTTON:OMBACK':
             ui.MainMenu.visible = True
             ui.MainMenu.inputControl = True
@@ -94,10 +99,29 @@ def handle_ui_events():
         # CHARACTER CREATION
 
         if event == 'EVENT:BUTTON:CCFINISH':
-            pass
+            ui.CharacterCreation.visible = False
+            ui.CharacterCreation.inputControl = False
+            ui.Gameplay.visible = True
+            ui.Gameplay.inputControl = True
         if event == 'EVENT:BUTTON:CCBACK':
             ui.CharacterCreation.visible = False
             ui.CharacterCreation.inputControl = False
             ui.MainMenu.visible = True
             ui.MainMenu.inputControl = True
+
+        # GAMEPLAY OPTIONS
+
+        if event == 'EVENT:BUTTON:OGGAME':
+            pass
+        if event == 'EVENT:BUTTON:OGDISPLAY':
+            pass
+        if event == 'EVENT:BUTTON:OGSOUND':
+            pass
+        if event == 'EVENT:BUTTON:OGBACK':
+            ui.MainMenu.visible = True
+            ui.MainMenu.inputControl = True
+            ui.Options.visible = False
+            ui.Options.inputControl = False
+
+        # GAMEPLAY UI
 

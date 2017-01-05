@@ -10,12 +10,15 @@ Save = object
 Load = object
 CharacterCreation = ui.UICharacterCreation()
 Inventory = object
-Gameplay = object
+Gameplay = ui.UIGameplay()
+GameplayOptions = ui.GameUIOptions()
 
 uiList = [
     MainMenu,
     CharacterCreation,
-    Options
+    Options,
+    Gameplay,
+    GameplayOptions
 ]
 
 
