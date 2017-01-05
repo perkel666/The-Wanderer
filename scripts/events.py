@@ -118,10 +118,21 @@ def handle_ui_events():
         if event == 'EVENT:BUTTON:OGSOUND':
             pass
         if event == 'EVENT:BUTTON:OGBACK':
-            ui.MainMenu.visible = True
-            ui.MainMenu.inputControl = True
-            ui.Options.visible = False
-            ui.Options.inputControl = False
+            ui.Gameplay.visible = True
+            ui.Gameplay.inputControl = True
+            ui.GameplayOptions.visible = False
+            ui.GameplayOptions.inputControl = False
 
         # GAMEPLAY UI
+
+        if event == 'EVENT:BUTTON:GPTQUIT':
+            ui.MainMenu.visible = True
+            ui.MainMenu.inputControl = True
+            ui.Gameplay.visible = False
+            ui.Gameplay.inputControl = False
+        if event == 'EVENT:BUTTON:GMTOPTIONS':
+            ui.Gameplay.visible = False
+            ui.Gameplay.inputControl = False
+            ui.GameplayOptions.visible = True
+            ui.GameplayOptions.inputControl = True
 

@@ -185,7 +185,7 @@ class GameUIOptions():
 
         self.difference = 120
 
-        # self.background = CreateSprite('om_background.jpg', 'og_background')
+        self.background = CreateSprite('om_background.jpg', 'og_background')
         self.uiBackground = CreateSprite('om_ui_background.jpg', 'og_ui_background')
 
         self.buttonGame = CreateSprite('om_button_game.jpg', 'OGGAME')
@@ -225,7 +225,7 @@ class GameUIOptions():
 
     def add_spritestorender(self):
         from storage import UInterface
-        #UInterface.background.add(self.background)
+        UInterface.background.add(self.background)
         UInterface.layer1.add(self.uiBackground)
 
         for button in self.buttonList:
@@ -242,6 +242,7 @@ class UIGameplay():
         self.visible = False
         self.inputControl = False
 
+        self.differenceToolbox = 50
         self.background = CreateSprite('gm_background.jpg', 'gm_background')
         self.portraitBackground = CreateSprite('gm_portrait_background.jpg', 'gm_portrait_background')
         self.toolboxBackground = CreateSprite('gm_toolbox_background.jpg', 'gm_toolbox_background')
@@ -255,6 +256,19 @@ class UIGameplay():
             self.dayTime_background
         ]
 
+        self.buttonToolboxQuit = CreateSprite('gm_toolbox_button_quit.jpg', 'GPTQUIT')
+        self.buttonToolboxOptions = CreateSprite('gm_toolbox_button_options.jpg', 'GMTOPTIONS')
+
+        self.buttonsList = [
+            self.buttonToolboxOptions,
+            self.buttonToolboxQuit
+        ]
+
+        self.buttonsToolboxList = [
+            self.buttonToolboxOptions,
+            self.buttonToolboxQuit
+        ]
+
     def update(self):
         self.position_ui()
         self.add_spritestorender()
@@ -263,6 +277,7 @@ class UIGameplay():
     def position_ui(self):
         import storage as st
         res = st.Display.resolution
+
         self.portraitBackground.rect.topleft = (10, 10)
         self.toolboxBackground.rect.bottomright = (st.Display.resolution[0]*0.99, st.Display.resolution[1]*0.99)
         self.moneyBackground.rect.x = self.portraitBackground.rect.right + 10
@@ -270,15 +285,24 @@ class UIGameplay():
         self.dayTime_background.rect.x = self.portraitBackground.rect.right + 10
         self.dayTime_background.rect.y = self.moneyBackground.rect.bottom + 10
 
+        count = 0
+        for button in self.buttonsToolboxList:
+            button.rect.centerx = self.toolboxBackground.rect.topleft[0] + self.toolboxBackground.rect.width/2
+            button.rect.top = self.toolboxBackground.rect.top+10+count*self.differenceToolbox
+            count += 1
+
     def add_spritestorender(self):
         from storage import UInterface
         UInterface.background.add(self.background)
 
         for ui_element in self.uiElBackgroundList:
-            UInterface.layer1.add(ui_element)
+            UInterface.layer2.add(ui_element)
+
+        for button in self.buttonsList:
+            UInterface.button_layer2.add(button)
 
     def execute_actions(self):
         if self.inputControl is True:
-            for button in self.uiElBackgroundList:
+            for button in self.buttonsList:
                 button.click()
 
