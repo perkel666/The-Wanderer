@@ -103,6 +103,7 @@ class UICharacterCreation():
 
         self.buttonFinish.rect.center = (st.Display.resolution[0]*0.825, st.Display.resolution[1]*0.945)
         self.buttonBack.rect.center = (st.Display.resolution[0]*0.175, st.Display.resolution[1]*0.945)
+
     def add_spritestorender(self):
         from storage import UInterface
         UInterface.background.add(self.background)
@@ -122,6 +123,59 @@ class UIOptions():
     def __init__(self):
         self.visible = False
         self.inputControl = False
+
+        self.difference = 120
+
+        self.background = CreateSprite('om_background.jpg', 'om_background')
+        self.uiBackground = CreateSprite('om_ui_background.jpg', 'om_ui_background')
+
+        self.buttonGame = CreateSprite('om_button_game.jpg', 'OMGAME')
+        self.buttonDisplay = CreateSprite('om_button_display.jpg', 'OMDISPLAY')
+        self.buttonSound = CreateSprite('om_button_sound.jpg', 'OMSOUND')
+        self.buttonBack = CreateSprite('om_button_back.jpg', 'OMBACK')
+
+        self.buttonList = [
+            self.buttonGame,
+            self.buttonDisplay,
+            self.buttonSound,
+            self.buttonBack
+        ]
+
+        self.moButtonList = [
+            self.buttonGame,
+            self.buttonDisplay,
+            self.buttonSound,
+            self.buttonBack
+        ]
+
+    def update(self):
+        self.position_ui()
+        self.add_spritestorender()
+        self.execute_actions()
+
+    def position_ui(self):
+        import storage as st
+
+        self.uiBackground.rect.center = (st.Display.resolution[0]*0.15, st.Display.resolution[1]*0.50)
+
+        count = 0
+        for button in self.moButtonList:
+            button.rect.x = self.uiBackground.rect.x+20
+            button.rect.y = 20+self.uiBackground.rect.y+count*self.difference
+            count += 1
+
+    def add_spritestorender(self):
+        from storage import UInterface
+        UInterface.background.add(self.background)
+        UInterface.layer1.add(self.uiBackground)
+
+        for button in self.buttonList:
+            UInterface.button_layer1.add(button)
+
+    def execute_actions(self):
+        if self.inputControl is True:
+            for button in self.buttonList:
+                button.click()
 
 
 class UIGameplay():

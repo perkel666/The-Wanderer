@@ -5,7 +5,7 @@ import scripts.user_interface as ui
 # Main User Interface
 
 MainMenu = ui.UIMainMenu()
-Options = object
+Options = ui.UIOptions()
 Save = object
 Load = object
 CharacterCreation = ui.UICharacterCreation()
@@ -14,7 +14,8 @@ Gameplay = object
 
 uiList = [
     MainMenu,
-    CharacterCreation
+    CharacterCreation,
+    Options
 ]
 
 

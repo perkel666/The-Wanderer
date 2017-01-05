@@ -72,13 +72,24 @@ def handle_ui_events():
             ui.CharacterCreation.visible = True
             ui.CharacterCreation.inputControl = True
         if event == 'EVENT:BUTTON:OPTIONS':
-            pass
+            ui.MainMenu.visible = False
+            ui.MainMenu.inputControl = False
+            ui.Options.visible = True
+            ui.Options.inputControl = True
         if event == 'EVENT:BUTTON:SAVE':
             pass
         if event == 'EVENT:BUTTON:LOAD':
             pass
         if event == 'EVENT:BUTTON:QUIT':
             st.System.isGameStillRunning = False
+
+        # MAIN MENU - OPTIONS
+
+        if event == 'EVENT:BUTTON:OMBACK':
+            ui.MainMenu.visible = True
+            ui.MainMenu.inputControl = True
+            ui.Options.visible = False
+            ui.Options.inputControl = False
 
         # CHARACTER CREATION
 
@@ -89,3 +100,4 @@ def handle_ui_events():
             ui.CharacterCreation.inputControl = False
             ui.MainMenu.visible = True
             ui.MainMenu.inputControl = True
+

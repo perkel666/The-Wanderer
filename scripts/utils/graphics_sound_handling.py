@@ -151,7 +151,6 @@ class CreateSprite(pygame.sprite.Sprite):
         if self.press is True:
             import storage as st
             st.Events.ui.append(self.buttonEvent)
-            print self.type
 
 
 
