@@ -100,13 +100,12 @@ class UICharacterCreation():
 
 
         self.buttonList = [
-            self.buttonFinish,
-            self.buttonBack,
             self.buttonNextFace,
             self.buttonPreviousFace,
             self.buttonNextBackground,
-            self.buttonPreviousBackground
-        ]
+            self.buttonPreviousBackground,
+            self.buttonFinish,
+            self.buttonBack]
 
     def update(self):
         self.position_ui()

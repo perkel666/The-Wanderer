@@ -156,9 +156,6 @@ class CreateSprite(pygame.sprite.Sprite):
         ####################################################
         ####################################################
 
-
-
-
     def update(self):
 
         if self.type != 'normal sprite':
@@ -187,9 +184,9 @@ class CreateSprite(pygame.sprite.Sprite):
 
         # did user click button ?
         if st.Input.LMBUp is True and mouse_hover is True:
-            self.press = True
+            self.last_press = True
         else:
-            self.press = False
+            self.last_press = False
 
         # if there is pressed and hover image
         if self.type == 'hover,press':
@@ -206,7 +203,7 @@ class CreateSprite(pygame.sprite.Sprite):
                 else:
                     pass
         # if there is hover but it isn't pressed
-        elif self.type == 'press':
+        if self.type == 'press':
             if mouse_hover is True:
                 for event in events:
                     # pressed
@@ -217,7 +214,7 @@ class CreateSprite(pygame.sprite.Sprite):
                         self.image = self.image_no_hover
 
         # if there is hover but it isn't pressed
-        elif self.type == 'hover':
+        if self.type == 'hover':
             if mouse_hover is True:
                 self.image = self.image_hover
             else:
@@ -225,7 +222,7 @@ class CreateSprite(pygame.sprite.Sprite):
                     self.image = self.image_no_hover
 
     def click(self):
-        if self.press is True:
+        if self.last_press is True:
             import storage as st
             st.Events.ui.append(self.buttonEvent)
 

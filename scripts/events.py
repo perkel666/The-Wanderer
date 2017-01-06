@@ -120,7 +120,7 @@ def handle_ui_events():
             else:
                 ui.CharacterCreation.currentFace = gsh.CreateSprite(ui.CharacterCreation.list_faces[0])
                 ui.CharacterCreation.currentFaceCount = 0
-
+            print 'next face'
         if event == 'EVENT:BUTTON:CCPREVIOUSFACE':
             import scripts.ui.ui_objects as ui
             import scripts.utils.graphics_sound_handling as gsh
@@ -133,9 +133,7 @@ def handle_ui_events():
                 ui.CharacterCreation.currentFace = gsh.CreateSprite(ui.CharacterCreation.list_faces[
                     ui.CharacterCreation.numberOfFaces-1])
                 ui.CharacterCreation.currentFaceCount = ui.CharacterCreation.numberOfFaces-1
-
-            print 'current face count = ', ui.CharacterCreation.currentFaceCount
-            print ''
+            print 'previous face'
         if event == 'EVENT:BUTTON:CCNEXTFACEBACKGROUND':
             import scripts.ui.ui_objects as ui
             import scripts.utils.graphics_sound_handling as gsh
@@ -147,6 +145,8 @@ def handle_ui_events():
             else:
                 ui.CharacterCreation.currentFaceBackground = gsh.CreateSprite(ui.CharacterCreation.list_background[0])
                 ui.CharacterCreation.currentFaceBackgroundCount = 0
+            print 'next face background'
+
         if event == 'EVENT:BUTTON:CCPREVIOUSFACEBACKGROUND':
             import scripts.ui.ui_objects as ui
             import scripts.utils.graphics_sound_handling as gsh
@@ -159,7 +159,7 @@ def handle_ui_events():
                 ui.CharacterCreation.currentFaceBackground = gsh.CreateSprite(ui.CharacterCreation.list_background[
                     ui.CharacterCreation.numberOfFaceBackground-1])
                 ui.CharacterCreation.currentFaceBackgroundCount = ui.CharacterCreation.numberOfFaceBackground-1
-
+            print 'previous face background'
         # GAMEPLAY OPTIONS
 
         if event == 'EVENT:BUTTON:OGGAME':
