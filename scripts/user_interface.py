@@ -10,6 +10,8 @@ class UIMainMenu():
         self.inputControl = True
 
         self.difference = 120
+        self.position = (100, 100)
+        self.speed = 1
 
         self.background = CreateSprite('ui_background_mm.jpg', 'mm_background')
         self.uiBackground = CreateSprite('ui_background.jpg', 'mm_ui_background')
@@ -17,6 +19,8 @@ class UIMainMenu():
         self.buttonNewGame = CreateSprite('mm_button_newgame.jpg', 'NEWGAME')
         self.buttonOptions = CreateSprite('mm_button_options.jpg', 'OPTIONS')
         self.buttonQuit = CreateSprite('mm_button_quit.jpg', 'QUIT')
+
+        self.animation = CreateSprite('animtest.png', None, True, 30, 3)
 
         self.buttonList =[
             self.buttonNewGame,
@@ -36,8 +40,10 @@ class UIMainMenu():
         self.uiBackground.rect.x = 100
         self.uiBackground.rect.y = 50
 
-        count = 0
+        self.animation.rect.x += 1
 
+
+        count = 0
         for button in self.buttonList:
             button.rect.x = self.uiBackground.rect.x+20
             button.rect.y = 20+self.uiBackground.rect.y+count*self.difference
@@ -47,6 +53,7 @@ class UIMainMenu():
         from storage import UInterface
         UInterface.background.add(self.background)
         UInterface.layer1.add(self.uiBackground)
+        UInterface.other_layer1.add(self.animation)
 
         for button in self.buttonList:
             UInterface.button_layer1.add(button)

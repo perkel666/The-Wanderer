@@ -28,7 +28,12 @@ def load_image(name, rect=None):
 
 
 class CreateSprite(pygame.sprite.Sprite):
-    def __init__(self, name_of_the_file, button_name=None):
+    def __init__(
+            self, name_of_the_file,
+            button_name=None,
+            animation=None,
+            anim_no_of_frames=None,
+            anim_seconds=None):
 
         """
         Creates CreateSprite from name of image in program folder.
@@ -61,6 +66,7 @@ class CreateSprite(pygame.sprite.Sprite):
         # State in response to input
         self.last_press = False
 
+
         if button_name is not None:
             import storage as st
             name_path = st.Files.files.find_path(name_of_the_file)
@@ -84,10 +90,83 @@ class CreateSprite(pygame.sprite.Sprite):
         elif self.hover is True and self.press is not True:
             self.type = 'hover'
 
+        #########################################
+        #########################################
+        #########################################
+
+                                ### ANIMATION ###
+
+        # sprite lists and animation
+
+        self.sizeFrame = (100, 100)
+        if animation is not None:
+            pass
+        self.noFrames = 5
+        if anim_no_of_frames is not None:
+            self.noFrames = anim_no_of_frames
+        self.seconds = 5
+        if anim_seconds is not None:
+            self.seconds = anim_seconds
+
+        self.sprites_no_hover = []
+        self.sprites_hover = []
+        self.sprites_press = []
+
+
+        if animation is not None:
+
+            self.type = 'animation'
+
+            image = self.image
+            strips = []
+            count = 0
+
+            frames = self.noFrames
+
+            width = self.rect.width
+            height = self.rect.height
+            frame_height = self.rect.height/frames
+
+            while count < frames:
+                sprite = pygame.Surface((width, frame_height), pygame.SRCALPHA)
+                sprite.blit(image, (0, 0), (0, count*frame_height, width, frame_height))
+                sprite.convert_alpha()
+                sprite.get_rect()
+                strips.append(sprite)
+                count += 1
+
+            self.sprites_no_hover = strips
+            self.image = self.sprites_no_hover[0]
+
+            # locals
+
+            self.timeDuration = self.seconds
+            self.numberOfFrames = float(len(self.sprites_no_hover))
+            self.timeStartOfAnim = None
+            self.timeCurrentTime = None
+            self.timeCurrentAnimTime = 0
+            self.timeEndOfAnim = None
+            self.listOfFrames = []
+            self.animationStarted = False
+            self.animationLoop = True
+            self.sprite_list = self.sprites_no_hover
+            self.image = self.sprite_list[0]
+            self.animShowOffset = self.timeDuration / self.numberOfFrames
+            self.lastFrameTime = None
+
+        ####################################################
+        ####################################################
+        ####################################################
+
+
+
+
     def update(self):
 
         if self.type != 'normal sprite':
             self.get_state()
+        if self.type == 'animation':
+            self.animation()
 
     def get_state(self):
         """
@@ -151,6 +230,35 @@ class CreateSprite(pygame.sprite.Sprite):
         if self.press is True:
             import storage as st
             st.Events.ui.append(self.buttonEvent)
+
+    def animation(self):
+        import time
+        self.timeCurrentTime = time.time()
+        self.anim_start()
+        if self.animationStarted is True:
+            for x in self.listOfFrames:
+                if x[1] > self.timeCurrentTime:
+                    self.lastFrameTime = x[1]
+                    self.image = x[0]
+                    break
+            if self.timeEndOfAnim < self.timeCurrentTime:
+                self.animationStarted = False
+
+    def anim_start(self):
+        import time
+        if self.animationLoop is True:
+            if self.animationStarted is False:
+                self.timeCurrentTime = time.time()
+                self.timeStartOfAnim = self.timeCurrentTime
+                self.timeEndOfAnim = self.timeCurrentTime + self.timeDuration
+                self.animationStarted = True
+                self.lastFrameTime = self.timeStartOfAnim
+
+                count = 1
+                for sprite in self.sprite_list:
+                    self.listOfFrames.append(
+                        [sprite, self.timeStartOfAnim+count*self.animShowOffset])
+                    count += 1
 
 
 

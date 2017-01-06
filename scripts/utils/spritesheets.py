@@ -48,7 +48,7 @@ class SpriteAnim():
         self.animShowOffset = self.timeDuration / len(sprite_list)
         self.lastFrameTime = None
 
-    def anim_update(self):
+    def update(self):
         import time
         self.timeCurrentTime = time.time()
         SpriteAnim.anim_start(self)
