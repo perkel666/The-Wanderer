@@ -2,6 +2,7 @@ __author__ = 'Perkel'
 
 import pygame as pg
 from scripts.utils.graphics_sound_handling import CreateSprite
+import os
 
 
 class UIMainMenu():
@@ -42,7 +43,6 @@ class UIMainMenu():
 
         self.animation.rect.x += 1
 
-
         count = 0
         for button in self.buttonList:
             button.rect.x = self.uiBackground.rect.x+20
@@ -69,6 +69,9 @@ class UICharacterCreation():
         self.visible = False
         self.inputControl = False
 
+        self.path_faces = "data/art/player/head"
+        self.path_faces_backgrounds = "data/art/player/backgrounds"
+
         self.background = CreateSprite('cc_background.jpg', 'cc_background')
         self.uiBackground = CreateSprite('cc_ui_background.jpg', 'cc_ui_background')
 
@@ -82,6 +85,19 @@ class UICharacterCreation():
 
         self.buttonFinish = CreateSprite('cc_button_finish.jpg', 'CCFINISH')
         self.buttonBack = CreateSprite('cc_button_back.jpg', 'CCBACK')
+
+        self.list_faces = os.listdir(self.path_faces)
+        self.list_background = os.listdir(self.path_faces_backgrounds)
+
+        self.currentFace = CreateSprite(self.list_faces[0], 'face')
+        self.currentFaceBackground = CreateSprite(self.list_background[0], 'face_background')
+
+        self.numberOfFaces = len(self.list_faces)
+        self.numberOfFaceBackground = len(self.list_background)
+
+        self.currentFaceCount = 0
+        self.currentFaceBackgroundCount = 0
+
 
         self.buttonList = [
             self.buttonFinish,
@@ -111,11 +127,16 @@ class UICharacterCreation():
         self.buttonFinish.rect.center = (st.Display.resolution[0]*0.825, st.Display.resolution[1]*0.945)
         self.buttonBack.rect.center = (st.Display.resolution[0]*0.175, st.Display.resolution[1]*0.945)
 
+        self.currentFace.rect.center = self.faceBackground.rect.center
+        self.currentFaceBackground.rect.center = self.faceBackground.rect.center
+
     def add_spritestorender(self):
         from storage import UInterface
         UInterface.background.add(self.background)
         UInterface.layer1.add(self.uiBackground)
         UInterface.layer2.add(self.faceBackground)
+        UInterface.layer3.add(self.currentFaceBackground)
+        UInterface.layer4.add(self.currentFace)
 
         for button in self.buttonList:
             UInterface.button_layer1.add(button)

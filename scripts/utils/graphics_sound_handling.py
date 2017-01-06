@@ -112,7 +112,6 @@ class CreateSprite(pygame.sprite.Sprite):
         self.sprites_hover = []
         self.sprites_press = []
 
-
         if animation is not None:
 
             self.type = 'animation'
@@ -136,7 +135,6 @@ class CreateSprite(pygame.sprite.Sprite):
                 count += 1
 
             self.sprites_no_hover = strips
-            self.image = self.sprites_no_hover[0]
 
             # locals
 

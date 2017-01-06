@@ -123,3 +123,13 @@ class UInterface:
 
 class UIGameplay():
     pass
+
+
+class Player():
+
+    name = ''
+
+    face = ''
+    faceBackroud = ''
+
+    # STATS
