@@ -73,6 +73,7 @@ class Game(object):
         rnd.render_ui()
 
         import scripts.utils.text_handling as tx
+        # TODO fix name box
         tx.text('FPS - '+str(int(st.System.fps)), (10, 10), 30)
         tx.text('NAME: '+st.Input.input_text, (40, 40), 20)
         tx.things_to_print(st.UInterface.list_of_texts)
