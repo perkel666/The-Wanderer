@@ -19,7 +19,7 @@ class Game(object):
         st.Display.resolution = (1280, 720)
         st.Display.fullscreen = False
         st.Display.fullscreenSwitch = st.Display.fullscreen
-        st.Display.framerate = 500
+        st.Display.framerate = 50
         st.Display.screen = pg.display.set_mode(st.Display.resolution)
         st.System.fpsPosition = (st.Display.resolution[0]*0.92, st.Display.resolution[1]*0.92)
         # events
@@ -54,6 +54,7 @@ class Game(object):
         import scripts.input as u_input
         u_input.mouse_input()
         u_input.keyboard_input()
+        u_input.keyboard_str_input()
 
     def update_state(self):
         import scripts.events as ev
@@ -73,6 +74,7 @@ class Game(object):
 
         import scripts.utils.text_handling as tx
         tx.text('FPS - '+str(int(st.System.fps)), (10, 10), 30)
+        tx.text('NAME: '+st.Input.input_text, (40, 40), 20)
         tx.things_to_print(st.UInterface.list_of_texts)
 
         pg.display.update()

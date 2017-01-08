@@ -29,6 +29,7 @@ def system_events():
         if event.type == pg.QUIT:
             st.Events.system.append('QUIT')
 
+
 # EVENTS HANDLING
 
 

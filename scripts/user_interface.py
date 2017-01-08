@@ -142,6 +142,7 @@ class UICharacterCreation():
 
     def add_spritestorender(self):
         from storage import UInterface
+        from storage import Input
         import scripts.utils.text_handling as tx
         UInterface.background.add(self.background)
         UInterface.layer1.add(self.uiBackground)
@@ -154,7 +155,9 @@ class UICharacterCreation():
         for button in self.buttonList:
             UInterface.button_layer1.add(button)
 
-        UInterface.list_of_texts.append((tx.text_to_print, self.textBox, 20))
+        UInterface.list_of_texts.append((Input.input_text, self.textBox, 40))
+        UInterface.list_of_texts.append((tx.text_to_print, self.textBox, 18))
+
 
     def execute_actions(self):
         if self.inputControl is True:
