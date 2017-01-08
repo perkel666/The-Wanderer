@@ -19,7 +19,7 @@ class Game(object):
         st.Display.resolution = (1280, 720)
         st.Display.fullscreen = False
         st.Display.fullscreenSwitch = st.Display.fullscreen
-        st.Display.framerate = 120
+        st.Display.framerate = 500
         st.Display.screen = pg.display.set_mode(st.Display.resolution)
         st.System.fpsPosition = (st.Display.resolution[0]*0.92, st.Display.resolution[1]*0.92)
         # events
@@ -74,7 +74,7 @@ class Game(object):
         pg.display.update()
 
         import scripts.utils.text_handling as tx
-        tx.text(tx.text_to_print, (200, 200), 20)
+        tx.text(str(st.System.fps), (10, 10), 50)
         tx.things_to_print(st.UInterface.list_of_texts)
 
         rnd.render_clear()
