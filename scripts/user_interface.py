@@ -64,8 +64,6 @@ class UIMainMenu():
                 button.click()
 
 
-
-
 class UICharacterCreation():
     def __init__(self):
         import storage as st
