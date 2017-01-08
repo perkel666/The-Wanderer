@@ -34,7 +34,8 @@ def text2(text_to_display, sprite, size):
     text_width, text_height = font.size(new_line)
 
     for word in text_list:
-        if text_width <= sprite.rect.width-55:
+        temp_width, temp_height = font.size(' '+word)
+        if text_width+temp_width <= sprite.rect.width-size/2:
             if word == text_list[0]:
                 new_line = word
             elif word == text_list[-1]:
@@ -57,7 +58,7 @@ def text2(text_to_display, sprite, size):
     count = 0
     for line in lines_to_print:
         final_text = font.render(str(line), 1, green)
-        st.Display.screen.blit(final_text, (sprite.rect.left+5, sprite.rect.top+size+count*size-size/2))
+        st.Display.screen.blit(final_text, (sprite.rect.left+size/2, sprite.rect.top+size+count*size-size/2))
         count += 1
 
 def things_to_print(list_of_things_to_print):
