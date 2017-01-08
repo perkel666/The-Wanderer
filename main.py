@@ -9,6 +9,7 @@ class Game(object):
     def __init__(self):
         import storage as st
         pg.init()
+        pg.font.init()
         # system
         st.System.debug = True
         st.System.clock = pg.time.Clock()
@@ -18,7 +19,7 @@ class Game(object):
         st.Display.resolution = (1280, 720)
         st.Display.fullscreen = False
         st.Display.fullscreenSwitch = st.Display.fullscreen
-        st.Display.framerate = 50
+        st.Display.framerate = 120
         st.Display.screen = pg.display.set_mode(st.Display.resolution)
         st.System.fpsPosition = (st.Display.resolution[0]*0.92, st.Display.resolution[1]*0.92)
         # events
@@ -66,10 +67,16 @@ class Game(object):
 
     def render_screen(self):
         import scripts.rendering_graphics as rnd
-
+        import scripts.ui.ui_objects as ui
+        import storage as st
         rnd.update_state()
         rnd.render_ui()
         pg.display.update()
+
+        import scripts.utils.text_handling as tx
+        tx.text(tx.text_to_print, (200, 200), 20)
+        tx.things_to_print(st.UInterface.list_of_texts)
+
         rnd.render_clear()
 
     def execute_state(self):
@@ -77,21 +84,6 @@ class Game(object):
         ev.handle_ui_events()
         ev.handle_system_events()
 
-    ####
-
-    import scripts.utils.graphics_sound_handling as gsh
-
-    class ButtonsQuit(gsh.CreateSprite):
-        def __init__(self, name_of_the_file):
-            super(Game.ButtonsQuit, self).__init__(name_of_the_file, button_name=True)
-            self.description = "Quit"
-            self.order = 6
-
-        def do_action(self):
-            if self.last_press is True:
-                print self.description
-                self.last_press = False
-    ####
 
 if __name__ == "__main__":
     game = Game()

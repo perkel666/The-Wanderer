@@ -63,6 +63,10 @@ class UInterface:
     UIVisible = True
     UIInputControl = True
 
+    # TEXT to print
+
+    list_of_texts = []
+
     # LAYERS
 
     import pygame.sprite as pgspr
@@ -133,3 +137,6 @@ class Player():
     faceBackroud = ''
 
     # STATS
+
+class Fonts():
+    font_namebox = None

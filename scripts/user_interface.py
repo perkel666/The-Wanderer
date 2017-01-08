@@ -64,8 +64,11 @@ class UIMainMenu():
                 button.click()
 
 
+
+
 class UICharacterCreation():
     def __init__(self):
+        import storage as st
         self.visible = False
         self.inputControl = False
 
@@ -75,8 +78,12 @@ class UICharacterCreation():
         self.background = CreateSprite('cc_background.jpg', 'cc_background')
         self.uiBackground = CreateSprite('cc_ui_background.jpg', 'cc_ui_background')
 
+        self.textBox = CreateSprite('textbox.jpg', 'textbox')
+
         self.faceBackground = CreateSprite('cc_face_background.jpg', 'cc_face_background')
         self.faceForeground = ''
+
+        self.nameBox = CreateSprite('namebox.jpg', 'ENTERNAME')
 
         self.buttonNextFace = CreateSprite('cc_arrow_right.jpg', 'CCNEXTFACE')
         self.buttonPreviousFace = CreateSprite('cc_arrow_left.jpg', 'CCPREVIOUSFACE')
@@ -98,7 +105,6 @@ class UICharacterCreation():
         self.currentFaceCount = 0
         self.currentFaceBackgroundCount = 0
 
-
         self.buttonList = [
             self.buttonNextFace,
             self.buttonPreviousFace,
@@ -107,6 +113,9 @@ class UICharacterCreation():
             self.buttonFinish,
             self.buttonBack]
 
+        pg.font.init()
+        st.Fonts.font_namebox = pg.font.Font(None, 18)
+
     def update(self):
         self.position_ui()
         self.add_spritestorender()
@@ -114,31 +123,40 @@ class UICharacterCreation():
 
     def position_ui(self):
         import storage as st
+        res = st.Display.resolution
+        self.uiBackground.rect.center = (res[0]/2, res[1]/2+30)
+        self.faceBackground.rect.center = (res[0]/2, res[1]/2-90)
 
-        self.uiBackground.rect.center = (st.Display.resolution[0]/2, st.Display.resolution[1]/2+30)
-        self.faceBackground.rect.center = (st.Display.resolution[0]/2, st.Display.resolution[1]/2-90)
+        self.nameBox.rect.center = (self.faceBackground.rect.centerx, self.faceBackground.rect.bottom+50)
 
-        self.buttonNextFace.rect.center = (st.Display.resolution[0]/2+140, st.Display.resolution[1]/2-160)
-        self.buttonPreviousFace.rect.center = (st.Display.resolution[0]/2-140, st.Display.resolution[1]/2-160)
-        self.buttonNextBackground.rect.center = (st.Display.resolution[0]/2+140, st.Display.resolution[1]/2-15)
-        self.buttonPreviousBackground.rect.center = (st.Display.resolution[0]/2-140, st.Display.resolution[1]/2-15)
+        self.textBox.rect.center = (res[0]/2+res[0]/2/2, res[1]/2)
 
-        self.buttonFinish.rect.center = (st.Display.resolution[0]*0.825, st.Display.resolution[1]*0.945)
-        self.buttonBack.rect.center = (st.Display.resolution[0]*0.175, st.Display.resolution[1]*0.945)
+        self.buttonNextFace.rect.center = (res[0]/2+140, res[1]/2-160)
+        self.buttonPreviousFace.rect.center = (res[0]/2-140, res[1]/2-160)
+        self.buttonNextBackground.rect.center = (res[0]/2+140, res[1]/2-15)
+        self.buttonPreviousBackground.rect.center = (res[0]/2-140, res[1]/2-15)
+
+        self.buttonFinish.rect.center = (res[0]*0.825, res[1]*0.945)
+        self.buttonBack.rect.center = (res[0]*0.175, res[1]*0.945)
 
         self.currentFace.rect.center = self.faceBackground.rect.center
         self.currentFaceBackground.rect.center = self.faceBackground.rect.center
 
     def add_spritestorender(self):
         from storage import UInterface
+        import scripts.utils.text_handling as tx
         UInterface.background.add(self.background)
         UInterface.layer1.add(self.uiBackground)
         UInterface.layer2.add(self.faceBackground)
-        UInterface.layer3.add(self.currentFaceBackground)
+        UInterface.layer3.add(self.currentFaceBackground, self.nameBox, self.textBox)
         UInterface.layer4.add(self.currentFace)
+
+        # TODO implement text display
 
         for button in self.buttonList:
             UInterface.button_layer1.add(button)
+
+        UInterface.list_of_texts.append((tx.text_to_print, self.textBox, 20))
 
     def execute_actions(self):
         if self.inputControl is True:

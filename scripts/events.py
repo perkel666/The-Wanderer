@@ -1,6 +1,7 @@
 __author__ = 'Perkel'
 
 import pygame as pg
+from pygame.locals import *
 
 # CREATING EVENTS
 

@@ -17,6 +17,8 @@ def render_clear():
     from storage import UInterface
     for spritegroup in UInterface.listCompleteRendering:
         spritegroup.empty()
+    import storage as st
+    st.UInterface.list_of_texts = []
 
 
 def update_state():
