@@ -34,13 +34,13 @@ def text2(text_to_display, sprite, size):
     text_width, text_height = font.size(new_line)
 
     for word in text_list:
-        if text_width < sprite.rect.width-20:
+        if text_width <= sprite.rect.width-20:
             if word == text_list[0]:
                 new_line = word
+            elif word == text_list[-1]:
+                lines_to_print.append(new_line)
             else:
                 new_line = new_line+' '+word
-            if word == text_list[-1]:
-                lines_to_print.append(new_line)
 
         else:
             lines_to_print.append(new_line)
