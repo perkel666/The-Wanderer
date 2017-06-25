@@ -54,7 +54,7 @@ class Game(object):
         import scripts.input as u_input
         u_input.mouse_input()
         u_input.keyboard_input()
-        u_input.keyboard_str_input()
+        u_input.keyboard_name_input()
 
     def update_state(self):
         import scripts.events as ev
@@ -75,7 +75,7 @@ class Game(object):
         import scripts.utils.text_handling as tx
         # TODO fix name box
         tx.text('FPS - '+str(int(st.System.fps)), (10, 10), 30)
-        tx.text('NAME: '+st.Input.input_text, (40, 40), 20)
+        tx.text('NAME: '+st.Input.input_text, (40, 40), 40)
         tx.things_to_print(st.UInterface.list_of_texts)
 
         pg.display.update()

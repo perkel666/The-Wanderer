@@ -155,9 +155,8 @@ class UICharacterCreation():
         for button in self.buttonList:
             UInterface.button_layer1.add(button)
 
-        UInterface.list_of_texts.append((Input.input_text, self.textBox, 40))
+        UInterface.list_of_texts.append((Input.input_text, self.nameBox, 18))
         UInterface.list_of_texts.append((tx.text_to_print, self.textBox, 18))
-
 
     def execute_actions(self):
         if self.inputControl is True:

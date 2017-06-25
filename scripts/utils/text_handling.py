@@ -2,6 +2,7 @@ __author__ = 'Perkel'
 
 import pygame as pg
 import string
+import textwrap
 
 from pygame.locals import *
 
@@ -20,12 +21,15 @@ def text(text_to_display, position, size):
     st.Display.screen.blit(scoretext, position)
 
 
-text_to_print = "Luis had a good time last year at Olimpics. He was proud of our boys delivering fantastic performance."
+text_to_print = "Luis had a good time last year at Olimpics. He was proud of our boys delivering fantastic performance. " \
+                "but he wasn't that mean to everybody. It is not like everyone needs someone to hug."
 
 
 def text2(text_to_display, sprite, size):
     import storage as st
-    font = pg.font.Font(None, size)
+    font = pg.font.SysFont('arial', size)
+
+    #print pg.font.get_fonts()
 
     new_line = ''
     line = []
@@ -50,16 +54,25 @@ def text2(text_to_display, sprite, size):
 
         text_width, text_height = font.size(new_line)
 
+    #newLinesToPrint = textwrap.wrap(text_to_display, 40)
+    #lines_to_print = []
+    #for x in newLinesToPrint:
+    #    lines_to_print.append(x)
+
+
     #print '============='
     #for x in lines_to_print:
     #    print x
     #print '============='
-    print text_list
+
     count = 0
     for line in lines_to_print:
-        final_text = font.render(str(line), 1, green)
+        final_text = font.render(str(line), 1, red)
         st.Display.screen.blit(final_text, (sprite.rect.left+size/2, sprite.rect.top+size+count*size-size/2))
         count += 1
+
+    #if sprite.name == 'namebox.jpg':
+    #    print 'sprite left/+size/2 = ', sprite.rect.left+size/2, ' and sprite.rect.top+size/2', sprite.rect.top+size/2
 
 def things_to_print(list_of_things_to_print):
 

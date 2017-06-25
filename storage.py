@@ -39,7 +39,7 @@ class Input:
     # MOUSE
 
     keyboard_input = True
-    input_text = ''
+    input_text = 'ss'
 
     mousePos = (0, 0)
     mousePressedButtons = []

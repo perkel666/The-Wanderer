@@ -48,7 +48,7 @@ def keyboard_input():
     st.Input.allInput = []
 
 
-def keyboard_str_input():
+def keyboard_name_input():
     import storage as st
     import string
 
@@ -56,20 +56,22 @@ def keyboard_str_input():
         events = st.Events.pygame
         for event in events:
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_BACKSPACE:
+                if event.key == pg.K_SPACE:
+                    st.Input.input_text += ''
+                    print st.Input.input_text
+                elif event.key == pg.K_BACKSPACE:
                     st.Input.input_text = st.Input.input_text[:-1]
                     print st.Input.input_text
                 elif event.key == pg.K_RETURN:
                     st.Input.keyboard_input = False
-                elif event.key == pg.K_SPACE:
-                    st.Input.input_text += ' '
                     print st.Input.input_text
                 elif event.key == pg.K_DELETE:
                     st.Input.input_text = st.Input.input_text[1:]
                     print st.Input.input_text
                 elif event.key <= 127:
-                    st.Input.input_text += str(chr(event.key))
+                    st.Input.input_text += str(unichr(event.key))
                     print st.Input.input_text
+
 
 
 
